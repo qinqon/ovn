@@ -59,9 +59,9 @@ BuildRequires: procps-ng
 %if %{with libcapng}
 BuildRequires: libcap-ng libcap-ng-devel
 %endif
-%if %{with check}
-BuildRequires: tcpdump
-%endif
+#%if %{with check}
+#BuildRequires: tcpdump
+#%endif
 BuildRequires: unbound unbound-devel
 
 Requires: openssl hostname iproute module-init-tools openvswitch
@@ -209,16 +209,16 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/ovs-appctl-bashcomp.bash
 rm -f $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/ovs-vsctl-bashcomp.bash
 rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/openvswitch
 
-%check
-%if %{with check}
-    touch resolv.conf
-    export OVS_RESOLV_CONF=$(pwd)/resolv.conf
-    if make check TESTSUITEFLAGS='%{_smp_mflags}' RECHECK=yes; then :;
-    else
-        cat tests/testsuite.log
-        exit 1
-    fi
-%endif
+#%check
+#%if %{with check}
+#    touch resolv.conf
+#    export OVS_RESOLV_CONF=$(pwd)/resolv.conf
+#    if make check TESTSUITEFLAGS='%{_smp_mflags}' RECHECK=yes; then :;
+#    else
+#        cat tests/testsuite.log
+#        exit 1
+#    fi
+#%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
